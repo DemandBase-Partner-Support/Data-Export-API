@@ -23,14 +23,6 @@ Grab the collection JSON and import into Postman:
 
 ---
 
-### Option 2 — Run in Postman
-
-Import directly via link:
-
-https://go.postman.co/collection/47989945-7d68cc8f-58a9-4391-999b-925bbfe13ee9
-
----
-
 ## 🔐 Authentication
 
 All requests use **Bearer Token authentication**.
@@ -69,8 +61,12 @@ Supports multiple entity types:
 - Opportunity
 - Person
 - Activity
-- Campaign
-- Creative
+- Ad Report Data
+  - Campaign
+  - Creative
+- Buying Group Data
+  - accountBuyingGroup
+  - personBuyingGroup  
 
 Includes:
 - Filters
@@ -125,13 +121,4 @@ Includes:
 
 ## 📚 Related Resources
 
-- https://docs.demandbase.com  
-
----
-
-## 💡 Why this exists
-
-This collection is designed to help customers:
-- Quickly test Export API capabilities  
-- Validate data before building integrations  
-- Reduce implementation time  
+- [Developer Documentation](https://developer.demandbase.com/docs/export-overview)
