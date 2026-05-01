@@ -81,8 +81,8 @@ Supported entity types include:
 - Person
 - Activity
 - Ad Report Data
-- Campaign
-- Creative
+  - Campaign
+  - Creative
 - Buying Group Data
   - accountBuyingGroup
   - personBuyingGroupMember
