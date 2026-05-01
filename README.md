@@ -3,7 +3,6 @@
 A ready-to-use Postman collection for testing and working with the Demandbase Export API.
 
 This collection allows you to:
-- Authenticate with Demandbase APIs
 - Create export jobs across multiple data types
 - Monitor job status
 - Retrieve exported data
