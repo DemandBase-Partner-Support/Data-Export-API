@@ -1,0 +1,447 @@
+{
+  "info": {
+    "_postman_id": "7d68cc8f-58a9-4391-999b-925bbfe13ee9",
+    "name": "Data Export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47989945",
+    "_collection_link": "https://go.postman.co/collection/47989945-7d68cc8f-58a9-4391-999b-925bbfe13ee9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Data Export API",
+      "item": [
+        {
+          "name": "Get Fields",
+          "item": [
+            {
+              "name": "Export Fields",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseURL}}/{{exportAPIPath}}/fields?entityType=Account",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "{{exportAPIPath}}",
+                    "fields"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityType",
+                      "value": "Account"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create Export Job",
+          "item": [
+            {
+              "name": "Create Export Job (Account, Opp, Person, Activity, Campaign, Creative)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"jobName\": \"activity_test_export_highkeywords\",\n    \"entityType\": \"Activity\",\n    \"limit\": \"10\",\n    \"fromDate\": \"2026-02-13\",\n    \"toDate\": \"2026-04-14\",\n    \"filters\": [\n        {\n            \"field\": \"{Activity}.highKeywords\",\n            \"operator\": \"Exists\"\n        },\n        {\n            \"field\": \"{Activity}.activityType\",\n            \"operator\": \"Contains\",\n            \"values\": [\"keyword\", \"Keyword\"]\n        }\n    ],\n    \"fields\": [\n        \"{Activity}.id\",\n        \"{Account}.id\",\n        \"{Activity}.accountDomain\",\n        \"{Activity}.activityDate\",\n        \"{Activity}.activityType\",\n        \"{Activity}.highKeywords\",\n        \"{Activity}.medKeywords\",\n        \"{Activity}.lowKeywords\",\n        \"{Activity}.keyword_set\"\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/{{exportAPIPath}}/job",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "{{exportAPIPath}}",
+                    "job"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create third-party campaign export job (LinkedIn and Google only)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityType\": \"campaign\",  //Required to be campaign\n  \"jobName\": \"ThirdPartyCampaignExportJob\",\n  \"jobType\": \"campaign_summary\", //Required to be campaign_summary\n  \"source\": [  //linkedin, google, or all\n    \"linkedin\",\n    \"google\"\n  ],\n  \"fields\": [\n    \"campaignId\",\n    \"campaignName\",\n    \"campaignSource\",\n    \"startDate\",\n    \"endDate\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/{{exportAPIPath}}/job",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "{{exportAPIPath}}",
+                    "job"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create account list export job",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"jobName\": \"AccountListExport\"\n    //\"accountListId\": \"integer\",\n    //\"accountListIds\": [\"integer\"]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/{{exportAPIPath}}/accountlist/Job",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "{{exportAPIPath}}",
+                    "accountlist",
+                    "Job"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create person list export job",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"jobName\": \"string\",\n    \"personListIds\": [\"integer\"]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/{{exportAPIPath}}/personList/job",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "{{exportAPIPath}}",
+                    "personList",
+                    "job"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get Job Details",
+          "item": [
+            {
+              "name": "Returns a list of submitted export jobs.",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseURL}}/{{exportAPIPath}}/jobs?entityType=string&jobStatus=string&page=1&perPage=10&sort=string (ascending/descending)",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "{{exportAPIPath}}",
+                    "jobs"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityType",
+                      "value": "string"
+                    },
+                    {
+                      "key": "jobStatus",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "string (ascending/descending)"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Check status of a data export job",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json, application/xml"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseURL}}/{{exportAPIPath}}/job/{{jobID}}",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "{{exportAPIPath}}",
+                    "job",
+                    "{{jobID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get Reference Data",
+          "item": [
+            {
+              "name": "Get available reference objects",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://uapi.demandbase.com/data/export/v1/references",
+                  "protocol": "https",
+                  "host": [
+                    "uapi",
+                    "demandbase",
+                    "com"
+                  ],
+                  "path": [
+                    "data",
+                    "export",
+                    "v1",
+                    "references"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Reference Data Fields For An Object",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://uapi.demandbase.com/data/export/v1/reference/{{object}}",
+                  "protocol": "https",
+                  "host": [
+                    "uapi",
+                    "demandbase",
+                    "com"
+                  ],
+                  "path": [
+                    "data",
+                    "export",
+                    "v1",
+                    "reference",
+                    "{{object}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{bearerToken}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "https://uapi.demandbase.com"
+    },
+    {
+      "key": "exportAPIPath",
+      "value": "data/export/v1"
+    },
+    {
+      "key": "bearerToken",
+      "value": ""
+    },
+    {
+      "key": "jobID",
+      "value": ""
+    }
+  ]
+}
